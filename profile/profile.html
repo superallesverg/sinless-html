@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Profile</title>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --primary-color: #4a90e2;
+        --secondary-color: #50e3c2;
+        --background-color: #f5f7fa;
+        --text-color: #4a4a4a;
+        --white-color: #ffffff;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+      }
+      .dashboard {
+        display: flex;
+        min-height: 100vh;
+      }
+      .sidebar {
+        width: 250px;
+        background-color: var(--primary-color);
+        color: var(--white-color);
+        padding: 20px;
+        transition: width 0.3s;
+      }
+      .sidebar .logo {
+        font-size: 24px;
+        margin-bottom: 30px;
+      }
+      .sidebar ul {
+        list-style-type: none;
+      }
+      .sidebar ul li {
+        margin-bottom: 20px;
+      }
+      .sidebar ul li a {
+        color: var(--white-color);
+        text-decoration: none;
+        font-size: 18px;
+        transition: color 0.3s;
+      }
+      .sidebar ul li a:hover {
+        color: var(--secondary-color);
+        padding-left: 10px;
+      }
+      .main-content {
+        flex: 1;
+        padding: 40px;
+      }
+      header h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+      }
+      header p {
+        font-size: 18px;
+      }
+      .widgets {
+        display: flex;
+        margin-top: 30px;
+        gap: 20px;
+      }
+      .widget {
+        background-color: var(--white-color);
+        padding: 20px;
+        border-radius: 8px;
+        flex: 1;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+      .widget:hover {
+        transform: translateY(-5px);
+      }
+      .widget h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: var(--primary-color);
+      }
+      .widget p {
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .charts {
+        display: flex;
+        margin-top: 40px;
+        gap: 20px;
+      }
+      .chart-container {
+        background-color: var(--white-color);
+        padding: 20px;
+        border-radius: 8px;
+        flex: 1;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      @media (max-width: 768px) {
+        .widgets,
+        .charts {
+          flex-direction: column;
+        }
+        .sidebar {
+          width: 60px;
+        }
+        .sidebar .logo,
+        .sidebar ul li a {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard">
+      <nav class="sidebar">
+        <h2 class="logo">Profile</h2>
+        <ul>
+          <li><a href="/profile/email.html">Email</a></li>
+          <li><a href="/profile/change-password.html">Change Password</a></li>
+          <li><a href="/profile/change-number.html">Change Number</a></li>
+          <li><a href="/profile/settings.html">Settings</a></li>
+        </ul>
+      </nav>
+
+      <div class="main-content">
+        <header>
+          <h1>Welcome, User</h1>
+          <p>Here are your latest stats.</p>
+        </header>
+
+        <section class="widgets">
+          <div class="widget">
+            <h3>Total Sales</h3>
+            <p>1,234</p>
+          </div>
+          <div class="widget">
+            <h3>New Users</h3>
+            <p>567</p>
+          </div>
+          <div class="widget">
+            <h3>Active Sessions</h3>
+            <p>89</p>
+          </div>
+        </section>
+
+        <section class="charts">
+          <div class="chart-container">
+            <canvas id="lineChart"></canvas>
+          </div>
+          <div class="chart-container">
+            <canvas id="barChart"></canvas>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const lineCtx = document.getElementById("lineChart").getContext("2d");
+        new Chart(lineCtx, {
+          type: "line",
+          data: {
+            labels: ["January", "February", "March", "April", "May", "June"],
+            datasets: [
+              {
+                label: "Sales Over Time",
+                data: [120, 190, 300, 500, 200, 300],
+                backgroundColor: "rgba(74, 144, 226, 0.2)",
+                borderColor: "rgba(74, 144, 226, 1)",
+                borderWidth: 2,
+                tension: 0.4,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            animation: {
+              duration: 1000,
+              easing: "easeInOutQuart",
+            },
+            plugins: {
+              legend: {
+                display: true,
+                position: "top",
+              },
+            },
+            scales: {
+              x: { grid: { display: false } },
+              y: {
+                grid: { color: "#eaeaea" },
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+
+        const barCtx = document.getElementById("barChart").getContext("2d");
+        new Chart(barCtx, {
+          type: "bar",
+          data: {
+            labels: ["Chrome", "Firefox", "Safari", "Edge", "Opera"],
+            datasets: [
+              {
+                label: "Browser Usage",
+                data: [65, 59, 80, 81, 56],
+                backgroundColor: [
+                  "rgba(74, 144, 226, 0.8)",
+                  "rgba(80, 227, 194, 0.8)",
+                  "rgba(255, 205, 86, 0.8)",
+                  "rgba(255, 99, 132, 0.8)",
+                  "rgba(153, 102, 255, 0.8)",
+                ],
+                borderColor: [
+                  "rgba(74, 144, 226, 1)",
+                  "rgba(80, 227, 194, 1)",
+                  "rgba(255, 205, 86, 1)",
+                  "rgba(255, 99, 132, 1)",
+                  "rgba(153, 102, 255, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            animation: {
+              duration: 1000,
+              easing: "easeInOutQuart",
+            },
+            plugins: {
+              legend: { display: false },
+            },
+            scales: {
+              x: { grid: { display: false } },
+              y: {
+                grid: { color: "#eaeaea" },
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

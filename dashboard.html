@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SINLESS</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgba(255, 255, 255, 0.5); /* Putih semi-transparan */
+        backdrop-filter: blur(5px); /* Opsional: efek blur latar belakang */
+        padding: 1rem;
+      }
+
+      .logo {
+        width: 60px;
+        border-radius: 50%;
+      }
+
+      .right-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-left: auto;
+        position: relative;
+      }
+
+      .menu-button,
+      .profile-button {
+        background-color: rgba(255, 255, 255, 0.5); /* Putih semi-transparan */
+        backdrop-filter: blur(5px);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+      }
+
+      .menu-button:hover,
+      .profile-button:hover {
+        background-color: #61afeb;
+      }
+
+      .profile-button {
+        border-radius: 50%;
+        padding: 10px;
+        font-size: 18px;
+        width: 40px;
+        height: 40px;
+      }
+
+      .search-container {
+        display: flex;
+        align-items: center;
+        background-color: #d5cdd1e0;
+        border-radius: 25px;
+        padding: 5px 10px;
+      }
+
+      .search-container input {
+        border: none;
+        outline: none;
+        padding: 5px 10px;
+        border-radius: 25px;
+        background-color: transparent;
+        color: white;
+        width: 150px;
+      }
+
+      .search-container i {
+        color: white;
+        margin-left: 10px;
+        cursor: pointer;
+      }
+
+      .section {
+        flex: 1;
+        padding: 50px;
+        height: 100vh;
+        background-color: rgb(255, 255, 255);
+        border-bottom: 1px solid rgb(255, 255, 255);
+      }
+
+      .section:nth-child(even) {
+        background-image: url("/gambar/background.jpg"); /* Ganti dengan path gambar yang sesuai */
+        background-size: cover; /* Agar gambar menutupi seluruh area */
+        background-position: center; /* Pusatkan gambar */
+        background-repeat: no-repeat; /* Hindari pengulangan */
+      }
+
+      /* Popup Profile */
+      .profile-popup {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        padding: 15px;
+        width: 180px;
+        opacity: 0;
+        transform: scale(0.95);
+        transition: all 0.3s ease;
+        pointer-events: none;
+        z-index: 1000;
+      }
+
+      .profile-popup.show {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+      }
+
+      .profile-popup a {
+        display: block;
+        color: #333;
+        text-decoration: none;
+        margin-top: 10px;
+      }
+
+      .profile-popup a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar">
+      <img src="logo/logo-sinless.jpg" alt="Logo SINLESS" class="logo" />
+
+      <div class="right-group">
+        <!-- Tambahan icon coin -->
+        <button class="menu-button" onclick="GoToCoin()">
+          <i class="fas fa-coins"></i>
+        </button>
+
+        <button class="menu-button" onclick="GoToTentang()">
+          <i class="fas fa-tshirt"></i>
+        </button>
+        <button class="menu-button" onclick="GoToKeranjang()">
+          <i class="fas fa-shopping-cart"></i>
+        </button>
+        <div class="search-container">
+          <input type="search" placeholder="Search..." />
+          <i class="fas fa-search"></i>
+        </div>
+
+        <!-- Profile icon & popup -->
+        <div class="profile-wrapper">
+          <button class="profile-button" onclick="toggleProfilePopup()">
+            <i class="fas fa-user"></i>
+          </button>
+          <div class="profile-popup" id="profilePopup">
+            <p>Halo, Pengguna!</p>
+            <a href="profile/profile.html"
+              ><i class="fas fa-id-badge"></i> Lihat Profil</a
+            >
+            <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Konten -->
+    <section class="section">
+      <div class="container">
+        <img src="/gambar/images 1.png" alt="" />
+        <img src="/gambar/images 2.jpg" alt="" />
+        <img src="/gambar/images 3.png" alt="" />
+        <img src="/gambar/images 4.png" alt="" />
+      </div>
+
+      <style>
+        body {
+          background-color: black;
+          margin: 0;
+          padding: 0;
+        }
+
+        .container {
+          margin: 100px auto;
+          width: 80%;
+          height: 450px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .container img {
+          width: 10%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 10px;
+          border: 2px solid rgba(255, 255, 255, 0.7);
+          transition: all 0.4s ease-in-out;
+        }
+
+        .container img:hover {
+          width: 50%;
+        }
+      </style>
+    </section>
+
+    <!-- Script -->
+    <script>
+      function GoToTentang() {
+        window.location.href = "produk.html";
+      }
+
+      function GoToKeranjang() {
+        window.location.href = "keranjang.html";
+      }
+
+      function GoToCoin() {
+        window.location.href = "coin.html";
+      }
+
+      function toggleProfilePopup() {
+        const popup = document.getElementById("profilePopup");
+        popup.classList.toggle("show");
+      }
+
+      // Tutup popup saat klik di luar
+      document.addEventListener("click", function (e) {
+        const popup = document.getElementById("profilePopup");
+        const button = document.querySelector(".profile-button");
+        if (!popup.contains(e.target) && !button.contains(e.target)) {
+          popup.classList.remove("show");
+        }
+      });
+    </script>
+  </body>
+</html>
